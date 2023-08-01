@@ -9,6 +9,7 @@ public class EmployeeDataContext : DbContext
 
     }
     public DbSet<Employee> Employees { get; set; }
+    public DbSet<HiringRequests> HiringRequests { get; set; }
 
     public IQueryable<Employee> GetEmployeesByDepartment(string department)
     {
