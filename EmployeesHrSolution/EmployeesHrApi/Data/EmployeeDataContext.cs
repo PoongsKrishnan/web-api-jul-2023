@@ -9,4 +9,16 @@ public class EmployeeDataContext : DbContext
 
     }
     public DbSet<Employee> Employees { get; set; }
+
+    public IQueryable<Employee> GetEmployeesByDepartment(string department)
+    {
+        if(department != "All")
+        {
+            return Employees.Where(e=>e.Department== department);
+        }
+        else
+        {
+            return Employees;
+        }
+    }
 }
