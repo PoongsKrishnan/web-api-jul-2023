@@ -5,4 +5,8 @@ services:
       - ACCEPT_EULA=Y
       - SA_PASSWORD=TokyoJoe138!
     ports:
-      - 1433:1433
+      - 1433:1433 
+  telecom:
+    image: jeffrygonzalez/telecom-api-aug-2023:latest
+    ports: 
+      - 1338:80

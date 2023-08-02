@@ -1,57 +1,24 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using EmployeesHrApi.Data;
 
 namespace EmployeesHrApi.Models;
 
-
-
+public record HiringRequestResponseModel
+{
+    public string Id { get; set; } = string.Empty;
+    public string FirstName { get; set; } = string.Empty;
+   
+    public string LastName { get; set; } = string.Empty;
     
+    public string HomeEmail { get; set; } = string.Empty;
+    public string HomePhone { get; set; } = string.Empty;
+   
+    public string RequestedDepartment { get; set; } = string.Empty;
+  
+    public decimal RequiredSalary { get; set; }
 
-    public record HiringRequestCreateRequest : IValidatableObject
-    {
-        [Required, MinLength(2), MaxLength(200)]
-        public string FirstName { get; set; } = string.Empty;
-        [Required]
-        public string LastName { get; set; } = string.Empty;
-        [Required, EmailAddress]
-        public string HomeEmail { get; set; } = string.Empty;
-        public string HomePhone { get; set; } = string.Empty;
-        [Required]
-        public string RequestedDepartment { get; set; } = string.Empty;
-        [Range(5000, double.MaxValue)]
-        public decimal RequiredSalary { get; set; }
+    public HiringRequestStatus Status { get; set; }
 
-        IEnumerable<ValidationResult> IValidatableObject.Validate(ValidationContext validationContext)
-        {
-            if (FirstName.ToLower() == "darth" && LastName.ToLower() == "vader")
-            {
-                yield return new ValidationResult("We have a no Sith Policy");
-            }
+}
 
-
-
-            if (RequiredSalary < 150000 && RequestedDepartment.ToLower() == "dev")
-            {
-                yield return new ValidationResult("Programmers are worth WAY more than that!");
-            }
-        }
-
-    }
-    public record HiringRequestResponseModel
-    {
-        public string Id { get; set; } = string.Empty;
-        public string FirstName { get; set; } = string.Empty;
-
-        public string LastName { get; set; } = string.Empty;
-
-        public string HomeEmail { get; set; } = string.Empty;
-        public string HomePhone { get; set; } = string.Empty;
-
-        public string RequestedDepartment { get; set; } = string.Empty;
-
-        public decimal RequiredSalary { get; set; }
-
-
-
-    }
 
 

@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.6.33829.357
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EmployeesHrApi", "EmployeesHrApi\EmployeesHrApi.csproj", "{D2E288EF-B144-475C-B5DA-B97624A71EC1}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TelecomApi", "TelecomApi\TelecomApi.csproj", "{790203E9-2C87-4084-B6C9-5CEBC74C6CB7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,15 +11,15 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{D2E288EF-B144-475C-B5DA-B97624A71EC1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{D2E288EF-B144-475C-B5DA-B97624A71EC1}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{D2E288EF-B144-475C-B5DA-B97624A71EC1}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{D2E288EF-B144-475C-B5DA-B97624A71EC1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{790203E9-2C87-4084-B6C9-5CEBC74C6CB7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{790203E9-2C87-4084-B6C9-5CEBC74C6CB7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{790203E9-2C87-4084-B6C9-5CEBC74C6CB7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{790203E9-2C87-4084-B6C9-5CEBC74C6CB7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {A498E9F2-AFF8-4424-A2FC-32D3A8F652D8}
+		SolutionGuid = {497AC2CF-B251-4DE8-AD5F-A3D437A3A2B9}
 	EndGlobalSection
 EndGlobal

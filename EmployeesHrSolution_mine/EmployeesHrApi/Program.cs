@@ -1,19 +1,13 @@
 // This is Main .NET
 using AutoMapper;
-using EmployeesHrApi;
 using EmployeesHrApi.Data;
-using EmployeesHrApi.HttpAdapters;
 using Microsoft.EntityFrameworkCore;
-using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
-builder.Services.AddControllers().AddJsonOptions(options =>
-{
-    options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
-});
+builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -25,29 +19,15 @@ builder.Services.AddDbContext<EmployeeDataContext>(options =>
     options.UseSqlServer(employeesConnectionString);
 });
 
-
 var mapperConfig = new MapperConfiguration(opt =>
 {
     opt.AddProfile<EmployeesHrApi.AutomapperProfiles.Employees>();
     opt.AddProfile<EmployeesHrApi.AutomapperProfiles.HiringRequestProfile>();
 });
-
-
 var mapper = mapperConfig.CreateMapper();
 
 builder.Services.AddSingleton<IMapper>(mapper);
 builder.Services.AddSingleton<MapperConfiguration>(mapperConfig);
-
-
-var teleComUrl = builder.Configuration.GetValue<string>("telecom-uri") ?? throw new Exception("Need a telecom URI");
-builder.Services.AddHttpClient<TelecomHttpAdapter>(client =>
-{
-    client.BaseAddress = new Uri(teleComUrl);
-    client.DefaultRequestHeaders.Add("User-Agent", "employeeshrapi");
-    
-}).AddPolicyHandler(HttpSrePolicies.GetDefaultRetryPolicy())
-.AddPolicyHandler(HttpSrePolicies.GetDefaultCircuitBreaker());
-
 
 // above this is configuration for the "behind the scenes" thing in your API
 var app = builder.Build();

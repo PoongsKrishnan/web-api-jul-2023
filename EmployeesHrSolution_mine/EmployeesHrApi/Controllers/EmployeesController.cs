@@ -5,48 +5,32 @@ using EmployeesHrApi.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
-namespace EmployeesHrApi.Controllers;
 
+namespace EmployeesHrApi.Controllers;
 public class EmployeesController : ControllerBase
 {
-
     private readonly EmployeeDataContext _context;
     private readonly ILogger<EmployeesController> _logger;
     private readonly IMapper _mapper;
     private readonly MapperConfiguration _config;
 
-    public EmployeesController(EmployeeDataContext context, ILogger<EmployeesController> logger, IMapper mapper, MapperConfiguration config)
+    public EmployeesController(EmployeeDataContext context, ILogger<EmployeesController> logger,IMapper mapper,MapperConfiguration config)
     {
         _context = context;
         _logger = logger;
-        _mapper = mapper;
+        _mapper =mapper; 
         _config = config;
     }
 
-    //DELETE
-
-    [HttpDelete("/employees/{id:int}")]
-    public async Task<ActionResult> FireEmployeeAsync(int id)
-    {
-        var employee = await _context.Employees.Where(e => e.Id == id && e.Fired == false).SingleOrDefaultAsync();
-        if (employee is not null)
-        {
-            employee.Fired = true;
-            await _context.SaveChangesAsync();
-        }
-        return NoContent();
-    }
-
-
-    // GET /employees/3
+    // Get /employees/3
     [HttpGet("/employees/{employeeId:int}")]
     public async Task<ActionResult> GetAnEmployeeAsync(int employeeId)
     {
-        _logger.LogInformation("Got the following employeeId {0}", employeeId);
+        _logger.LogInformation("Got the following Employee id {0}", employeeId);
         var employee = await _context.Employees
-            .Where(e => e.Id == employeeId)
-            .ProjectTo<EmployeeDetailsResponseModel>(_config)
-            .SingleOrDefaultAsync();
+           .Where(e => e.Id == employeeId)           
+           .ProjectTo<EmployeeDetailsResponseModel>(_config)
+           .SingleOrDefaultAsync();
 
         if (employee is null)
         {
@@ -56,25 +40,25 @@ public class EmployeesController : ControllerBase
         {
             return Ok(employee);
         }
-
     }
-
 
     // GET /employees
     [HttpGet("/employees")]
-    public async Task<ActionResult<EmployeesResponseModel>> GetEmployeesAsync([FromQuery] string department = "All")
-    {
-        var employees = await _context.GetEmployeesByDepartment(department)
+    public async Task<ActionResult> GetEmployeesAsync([FromQuery] string department = "All")
+    {   
+         var employees = await _context.GetEmployeesByDepartment(department)            
             .ProjectTo<EmployeesSummaryResponseModel>(_config)
             .ToListAsync(); // runs the query
+       
 
         var response = new EmployeesResponseModel
         {
             Employees = employees,
-            ShowingDepartment = department
+            ShowingDepartment=department
         };
         return Ok(response);
     }
 
-
+    // POST Employee
+    
 }
