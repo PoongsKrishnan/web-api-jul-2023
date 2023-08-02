@@ -28,16 +28,7 @@ public class EmployeesController : ControllerBase
     {
         _logger.LogInformation("Got the following Employee id {0}", employeeId);
         var employee = await _context.Employees
-           .Where(e => e.Id == employeeId)
-           //.Select(e=>new EmployeeDetailsResponseModel 
-           // { 
-           //    Id=e.Id.ToString(),
-           //    FirstName=e.FirstName,
-           //    LastName=e.LastName,
-           //    Department=e.Department,
-           //    Email=e.Email,
-           //    PhoneExtension=e.PhoneExtensions
-           // })
+           .Where(e => e.Id == employeeId)           
            .ProjectTo<EmployeeDetailsResponseModel>(_config)
            .SingleOrDefaultAsync();
 
@@ -55,15 +46,7 @@ public class EmployeesController : ControllerBase
     [HttpGet("/employees")]
     public async Task<ActionResult> GetEmployeesAsync([FromQuery] string department = "All")
     {   
-         var employees = await _context.GetEmployeesByDepartment(department)
-            //.Select(emp => new EmployeesSummaryResponseModel
-            //{
-            //    Id = emp.Id.ToString(),
-            //    FirstName = emp.FirstName,
-            //    LastName = emp.LastName,
-            //    Department = emp.Department,
-            //    Email = emp.Email,
-            //})
+         var employees = await _context.GetEmployeesByDepartment(department)            
             .ProjectTo<EmployeesSummaryResponseModel>(_config)
             .ToListAsync(); // runs the query
        

@@ -22,24 +22,12 @@ builder.Services.AddDbContext<EmployeeDataContext>(options =>
 var mapperConfig = new MapperConfiguration(opt =>
 {
     opt.AddProfile<EmployeesHrApi.AutomapperProfiles.Employees>();
+    opt.AddProfile<EmployeesHrApi.AutomapperProfiles.HiringRequestProfile>();
 });
 var mapper = mapperConfig.CreateMapper();
 
 builder.Services.AddSingleton<IMapper>(mapper);
 builder.Services.AddSingleton<MapperConfiguration>(mapperConfig);
-
- mapperConfig = new MapperConfiguration(opt =>
-{
-    opt.AddProfile<EmployeesHrApi.AutomapperProfiles.HiringRequestProfile>();
-});
- mapper = mapperConfig.CreateMapper();
-
-builder.Services.AddSingleton<IMapper>(mapper);
-builder.Services.AddSingleton<MapperConfiguration>(mapperConfig);
-
-
-
-
 
 // above this is configuration for the "behind the scenes" thing in your API
 var app = builder.Build();

@@ -10,5 +10,5 @@ Content-Type: application/json
     "homeEmail": "jenny@aol.com",
     "homePhone": "867-5309",
     "requestedDepartment": "DEV",
-    "requiredSalary": 80000
+    "requiredSalary": 180000
 }
