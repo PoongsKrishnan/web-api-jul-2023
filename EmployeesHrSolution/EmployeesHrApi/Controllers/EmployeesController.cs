@@ -28,7 +28,7 @@ public class EmployeesController : ControllerBase
     [HttpDelete("/employees/{id:int}")]
     public async Task<ActionResult> FireEmployeeAsync(int id)
     {
-        var employee = await _context.Employees.Where(e => e.Id == id && e.Fired == false).SingleOrDefaultAsync();
+        var employee = await _context.GetActiveEmployees().Where(e => e.Id == id && e.Fired == false).SingleOrDefaultAsync();
         if (employee is not null)
         {
             employee.Fired = true;
@@ -43,7 +43,7 @@ public class EmployeesController : ControllerBase
     public async Task<ActionResult> GetAnEmployeeAsync(int employeeId)
     {
         _logger.LogInformation("Got the following employeeId {0}", employeeId);
-        var employee = await _context.Employees
+        var employee = await _context.GetActiveEmployees()
             .Where(e => e.Id == employeeId)
             .ProjectTo<EmployeeDetailsResponseModel>(_config)
             .SingleOrDefaultAsync();
@@ -57,6 +57,25 @@ public class EmployeesController : ControllerBase
             return Ok(employee);
         }
 
+    }
+
+    [HttpGet("/employees/{employeeId:int}/salary")]
+    public async Task<ActionResult> GetAnEmployeesSalaryAsync(int employeeId)
+    {
+        var salary = await _context.GetActiveEmployees()
+            .Where(e => e.Id == employeeId)
+            .Select(e => e.Salary)
+            .SingleOrDefaultAsync();
+
+        if (salary == 0)
+        {
+            return NotFound();
+        }
+        else
+        {
+            var response = new EmployeeSalaryInormationResponse { Salary = salary };
+            return Ok(response);
+        }
     }
 
 
